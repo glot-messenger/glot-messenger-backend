@@ -32,9 +32,9 @@ APP.listen(PORT, () => {
 
 async function startWork(): Promise<void> {
 	try {
-		// await mongoose.connect((isConfig ? config.get('mongoDbUrl') : process.env.MONGO_DB_URL));
+		console.log('Firebase cloud has been started...');
 
-		// console.log('Mongodb has been started...');
+		// await mongoose.connect((isConfig ? config.get('mongoDbUrl') : process.env.MONGO_DB_URL));
 
 		// APP.listen(PORT, function() {
 		// 	console.log(`Server is running at ${(isConfig ? config.get('serverUrl') : process.env.SERVER_URL)}. His mode: ${MODE}.`);
