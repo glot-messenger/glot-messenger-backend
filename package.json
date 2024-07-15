@@ -4,12 +4,40 @@
   "description": "server on express with typescript for glot-messenger app",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "build:app": "npx tsc",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts"
   },
+  "keywords": [
+    "TypeScript",
+    "Node",
+    "NodeJS",
+    "Express",
+    "ExpressJS",
+    "JavaScript",
+    "glot",
+    "glot-messenger",
+    "GLOT",
+    "server",
+    "backend",
+    "glot-messenger-backend",
+    "TS",
+    "JS"
+  ],
   "author": "pixel.inc <pixel.develop@yandex.ru>",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.12",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
