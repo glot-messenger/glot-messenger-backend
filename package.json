@@ -1,0 +1,15 @@
+{
+  "name": "glot-messenger-backend",
+  "version": "1.0.0",
+  "description": "server on express with typescript for glot-messenger app",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "pixel.inc <pixel.develop@yandex.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
