@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import process from 'node:process';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 import { routerChild } from './routes';
 
 dotenv.config();
@@ -10,6 +11,7 @@ const APP: Express = express();
 const PORT: string = process.env.PORT || '3000';
 const MODE: string | undefined = process.env.NODE_ENV;
 
+APP.use(bodyParser.json({ strict: false })); // для добавления body в request
 APP.use('/api/v1', routerChild); // экземпляр дочернего роутера начинает подхватывать это начало
 
 if (MODE && MODE === 'production') {
