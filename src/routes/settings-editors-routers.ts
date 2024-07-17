@@ -4,20 +4,17 @@ import { getEndSegmentForUrlDataBase } from '../utils';
 
 import {
 	FIREBASE,
-	END_POINT_SETTINGS_EDITORS,
-	END_POINT_COLUMNS
+	END_POINT_SETTINGS_EDITORS
 } from '../core';
 
 const routerSettingsEditors = express.Router({ mergeParams: true });
 
-routerSettingsEditors.get('/', async(req: Request, res: Response) => {
+routerSettingsEditors.post('/', async(req: Request, res: Response) => {
 	const { userId } = req.body;
 
 	if (!userId) {
 		res.status(400).send({
-			settingsEditor: null,
-			columns: null,
-			slots: null
+			settingsEditor: null
 		});
 
 		return;
@@ -25,7 +22,9 @@ routerSettingsEditors.get('/', async(req: Request, res: Response) => {
 
 	const baseUrlSettingsEditors: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_SETTINGS_EDITORS);
 
-	const baseUrlColumns: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_COLUMNS);
+	//const baseUrlColumns: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_COLUMNS);
+
+	//const baseUrlSlots: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_SLOTS);
 
 	if (config.get('nameDB') === FIREBASE) {
 		const responseSettingsEditors = await fetch(baseUrlSettingsEditors, {
@@ -52,34 +51,55 @@ routerSettingsEditors.get('/', async(req: Request, res: Response) => {
 
 		if (findSettings === null) {
 			// ТУТ НАДО СОЗДАТЬ ГЕНЕРАЦИЮ НАСТРОЕК ПРОФИЛЯ ПО ДЕФОЛТУ И ИХ ЗАПИСЬ В БАЗУ FIREBASE
+			// ЭТО НА СЛУЧАЙ, ЕСЛИ ПОЛЬЗОВАТЕЛЬ ВПЕРВЫЕ ЗАРЕГЕСТРИРОВАН И ЕМУ НАДО СОЗДАТЬ НАСТРОЙКИ ПРОСТРАНСТВА
 
 			return;
 		}
 
-		const responseColumns = await fetch(baseUrlColumns, {
-			method: 'GET'
-		});
+		//const responseColumns = await fetch(baseUrlColumns, {
+		//	method: 'GET'
+		//});
 
-		const dataColumns = await responseColumns.json();
+		//const dataColumns = await responseColumns.json();
 
-		const arrayIdsColumns = Object.keys(dataColumns);
+		//const arrayIdsColumns = Object.keys(dataColumns);
 
-		const arrayColumnsResult = [];
+		//const arrayColumnsResult = [];
 
-		for (let m = 0; m < arrayIdsColumns.length; m++) {
-			const idColumn = arrayIdsColumns[m];
+		//for (let m = 0; m < arrayIdsColumns.length; m++) {
+		//	const idColumn = arrayIdsColumns[m];
 
-			const columnData = dataColumns[idColumn];
+		//	const columnData = dataColumns[idColumn];
 
-			if (columnData.settingId === findSettings._id) {
-				arrayColumnsResult.push(columnData);
-			}
-		}
+		//	if (columnData.settingId === findSettings._id) {
+		//		arrayColumnsResult.push(columnData);
+		//	}
+		//}
+
+		//const responseSlots = await fetch(baseUrlSlots, {
+		//	method: 'GET'
+		//});
+
+		//const dataSlots = await responseSlots.json();
+
+		//const arrayIdsSlots = Object.keys(dataSlots);
+
+		//const storeSlots: Record<string, Array<any>> = {};
+
+		//for (let m = 0; m < arrayIdsSlots.length; m++) {
+		//	const idSlot = arrayIdsSlots[m];
+
+		//	const slotData = dataSlots[idSlot];
+
+		//	if (!storeSlots.hasOwnProperty(slotData.columnId)) {
+		//		storeSlots[slotData.columnId] = [];
+		//	}
+
+		//	storeSlots[slotData.columnId].push(slotData);
+		//}
 
 		res.status(200).send({
-			settingsEditor: findSettings,
-			columns: arrayColumnsResult,
-			slots: null // ДОДЕЛАТЬ ПОЛУЧЕНИЕ СЛОТОВ
+			settingsEditor: findSettings
 		});
 
 		return;
@@ -88,9 +108,7 @@ routerSettingsEditors.get('/', async(req: Request, res: Response) => {
 	console.log('There must be a data collection trip to another database...');
 
 	res.status(404).send({
-		settingsEditor: null,
-		columns: null,
-		slots: null
+		settingsEditor: null
 	});
 });
 

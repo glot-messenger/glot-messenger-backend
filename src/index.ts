@@ -3,6 +3,7 @@ import process from 'node:process';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { routerChild } from './routes';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -11,6 +12,13 @@ const APP: Express = express();
 const PORT: string = process.env.PORT || '3000';
 const MODE: string | undefined = process.env.NODE_ENV;
 
+const corsOptions ={
+	origin: '*',
+	credentials: true,
+	optionSuccessStatus: 200
+};
+
+APP.use(cors(corsOptions)); // для решения проблем с CORS
 APP.use(bodyParser.json({ strict: false })); // для добавления body в request
 APP.use('/api/v1', routerChild); // экземпляр дочернего роутера начинает подхватывать это начало
 
