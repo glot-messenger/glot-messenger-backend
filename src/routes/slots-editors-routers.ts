@@ -10,9 +10,34 @@ import {
 const routerSlotsEditors = express.Router({ mergeParams: true });
 
 routerSlotsEditors.post('/', async(req: Request, res: Response) => {
-	const { columnsIds } = req.body;
+	const { columnsIdsWithSlotsPack } = req.body;
 
-	if (!columnsIds || (columnsIds && !Array.isArray(columnsIds))) {
+	if (!columnsIdsWithSlotsPack || (columnsIdsWithSlotsPack && typeof columnsIdsWithSlotsPack !== 'object')) {
+		res.status(400).send({
+			slotsEditor: null
+		});
+
+		return;
+	}
+
+	const arrayIdsColumns = Object.keys(columnsIdsWithSlotsPack);
+
+	let isErrorValue = false;
+
+	// проверяем, чтобы у id колонки обязательно было соотношение с массивом слотов, иначе что-то не так, и можно кидать ошибку
+	for (let m = 0; m < arrayIdsColumns.length; m++) {
+		const idColumn = arrayIdsColumns[m];
+
+		const value = columnsIdsWithSlotsPack[idColumn];
+
+		if (!Array.isArray(value)){
+			isErrorValue = true;
+
+			break;
+		}
+	}
+
+	if (isErrorValue) {
 		res.status(400).send({
 			slotsEditor: null
 		});
@@ -29,38 +54,26 @@ routerSlotsEditors.post('/', async(req: Request, res: Response) => {
 
 		const dataSlotsEditors = await responseSlotsEditors.json();
 
-		const arrayIdsSlotsEditors = Object.keys(dataSlotsEditors);
+		for (let z = 0; z < arrayIdsColumns.length; z++) {
+			const idColumn = arrayIdsColumns[z];
 
-		const columnsPack: Record<string, string> = {}
+			const slotsIdsForColumn = columnsIdsWithSlotsPack[idColumn];
 
-		for (let z = 0; z < columnsIds.length; z++) {
-			const columnId: string = columnsIds[z];
+			const pack: object[] = [];
 
-			columnsPack[columnId] = columnId;
-		}
+			slotsIdsForColumn.forEach((slotIdValue: string) => {
+				const slotObject = dataSlotsEditors[slotIdValue];
 
-		console.log(columnsPack, 'columnsPack');
-
-		const slotsPack: Record<string, Array<any>> = {};
-
-		for (let m = 0; m < arrayIdsSlotsEditors.length; m++) {
-			const idSlot = arrayIdsSlotsEditors[m];
-
-			const slot = dataSlotsEditors[idSlot];
-
-			const idColumnForSlot = slot.columnId;
-
-			if (columnsPack[idColumnForSlot]) {
-				const arraySlots = slotsPack[idColumnForSlot];
-
-				if (Array.isArray(arraySlots)) {
-					// доделать, в правильном порядке должны стоять слоты для колонки
+				if (slotObject) {
+					pack.push(slotObject);
 				}
-			}
+			});
+
+			columnsIdsWithSlotsPack[idColumn] = pack;
 		}
 
 		res.status(200).send({
-			slotsEditor: null
+			slotsEditor: columnsIdsWithSlotsPack
 		});
 
 		return;
