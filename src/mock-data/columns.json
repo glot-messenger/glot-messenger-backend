@@ -1,3 +1,35 @@
 [
-	
+	{
+		"_id": "66a2b8e61a2f1d3e154d0df9",
+		"styles": {
+			"width": "4%"
+		},
+		"settingId": "66a2a9f0738f8cc0f1aa7306",
+		"accessForChanges": true,
+		"slots": [
+			
+		]
+	},
+	{
+		"_id": "66a2b8e61a2f1d3e154d0dfa",
+		"styles": {
+			"width": "12%"
+		},
+		"settingId": "66a2a9f0738f8cc0f1aa7306",
+		"accessForChanges": true,
+		"slots": [
+			
+		]
+	},
+	{
+		"_id": "66a2b8e61a2f1d3e154d0dfb",
+		"styles": {
+			"width": "15%"
+		},
+		"settingId": "66a2a9f0738f8cc0f1aa7306",
+		"accessForChanges": false,
+		"slots": [
+			
+		]
+	}
 ]
