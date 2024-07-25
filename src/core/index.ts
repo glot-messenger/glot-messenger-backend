@@ -1,5 +1,8 @@
 // VARIABLES ==========================================================================
-import { FIREBASE } from './variables';
+import {
+	FIREBASE,
+	MONGO_DB
+} from './variables';
 
 // END_POINTS =========================================================================
 import {
@@ -11,6 +14,7 @@ import {
 
 export {
 	FIREBASE,
+	MONGO_DB,
 	END_POINT_SETTINGS_EDITORS,
 	END_POINT_COLUMNS_EDITORS,
 	END_POINT_SLOTS_EDITORS,

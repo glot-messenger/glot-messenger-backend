@@ -4,6 +4,7 @@ import { getEndSegmentForUrlDataBase } from '../utils';
 
 import {
 	FIREBASE,
+	MONGO_DB,
 	END_POINT_SETTINGS_EDITORS
 } from '../core';
 
@@ -20,13 +21,13 @@ routerSettingsEditors.post('/', async(req: Request, res: Response) => {
 		return;
 	}
 
-	const baseUrlSettingsEditors: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_SETTINGS_EDITORS);
-
 	//const baseUrlColumns: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_COLUMNS);
 
 	//const baseUrlSlots: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_SLOTS);
 
 	if (config.get('nameDB') === FIREBASE) {
+		const baseUrlSettingsEditors: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_SETTINGS_EDITORS);
+
 		const responseSettingsEditors = await fetch(baseUrlSettingsEditors, {
 			method: 'GET'
 		});
@@ -101,6 +102,12 @@ routerSettingsEditors.post('/', async(req: Request, res: Response) => {
 		res.status(200).send({
 			settingsEditor: findSettings
 		});
+
+		return;
+	}
+
+	if (config.get('nameDB') === MONGO_DB) {
+
 
 		return;
 	}
