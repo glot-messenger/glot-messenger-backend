@@ -8,7 +8,6 @@ import {
 const types = Schema.Types;
 
 const options = {
-	_id: types.ObjectId,
 	timeCreatedInMs: types.Number,
 	userId: {
 		type: types.ObjectId,

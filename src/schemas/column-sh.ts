@@ -1,17 +1,26 @@
 import { Schema } from 'mongoose';
-import { SETTINGS_EDITOR_COLLECTION_NAME_DB } from '../core';
+
+import {
+	SETTINGS_EDITOR_COLLECTION_NAME_DB,
+	SLOT_COLLECTION_NAME_DB
+} from '../core';
 
 const types = Schema.Types;
 
 const options = {
-	_id: types.ObjectId,
 	accessForChanges: types.Boolean,
 	settingId: {
 		type: types.ObjectId,
 		ref: SETTINGS_EDITOR_COLLECTION_NAME_DB,
 		required: true
 	},
-	slots: [ types.String ],
+	slots: [
+		{
+			type: types.ObjectId,
+			ref: SLOT_COLLECTION_NAME_DB,
+			required: false
+		}
+	],
 	styles: {
 		width: types.String
 	}

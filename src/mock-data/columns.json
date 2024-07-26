@@ -7,7 +7,9 @@
 		"settingId": "66a2a9f0738f8cc0f1aa7306",
 		"accessForChanges": true,
 		"slots": [
-			
+			"66a35f805d84bec8e8890dbe",
+			"66a35f805d84bec8e8890dbf",
+			"66a35f805d84bec8e8890dc0"
 		]
 	},
 	{
@@ -18,7 +20,9 @@
 		"settingId": "66a2a9f0738f8cc0f1aa7306",
 		"accessForChanges": true,
 		"slots": [
-			
+			"66a35f805d84bec8e8890dc1",
+			"66a35f805d84bec8e8890dc2",
+			"66a35f805d84bec8e8890dc3"
 		]
 	},
 	{
@@ -29,7 +33,9 @@
 		"settingId": "66a2a9f0738f8cc0f1aa7306",
 		"accessForChanges": false,
 		"slots": [
-			
+			"66a35f805d84bec8e8890dc5",
+			"66a35f805d84bec8e8890dc6",
+			"66a35f805d84bec8e8890dc4"
 		]
 	}
 ]

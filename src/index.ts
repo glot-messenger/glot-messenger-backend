@@ -46,8 +46,7 @@ async function startWork(): Promise<void> {
 		APP.listen(PORT, function () {
 			console.log(`Server is running at ${(isConfig ? config.get('urlServer') : process.env.SERVER_URL)}. His mode: ${MODE}.`);
 
-			initializationDB();
-			// initializationDB(MODE);
+			//initializationDB();
 		});
 
 	} catch (err) {

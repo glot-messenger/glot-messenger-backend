@@ -1,23 +1,31 @@
-import {
-	modelSettingsEditor,
-	modelAccount,
-	modelColumn
-} from './models';
-
+import mongoose from 'mongoose';
 import settingsEditorsMock from './mock-data/settings-editors.json';
 import accountsMock from './mock-data/accounts.json';
 import columnsMock from './mock-data/columns.json';
-import mongoose from 'mongoose';
+import slotsMock from './mock-data/slots.json';
+
+import {
+	modelSettingsEditor,
+	modelAccount,
+	modelColumn,
+	modelSlot
+} from './models';
 
 async function initializationDB(): Promise<void> {
 	try {
 		const accountsCollectionName = modelAccount.collection.collectionName; // имя конкретной коллекции
 		const settingsEditorsCollectionName = modelSettingsEditor.collection.collectionName;
 		const columnsCollectionName = modelColumn.collection.collectionName;
+		const slotsCollectionName = modelSlot.collection.collectionName;
 
 		const columnsListDoc = await modelColumn.find();
 		const settingsEditorsListDoc = await modelSettingsEditor.find();
 		const accountsListDoc = await modelAccount.find();
+		const slotsListDoc = await modelSlot.find();
+
+		if (slotsListDoc.length < slotsMock.length) { // если в базе данных менше чем в моке, значит надо записать моками
+			writeToDB(slotsCollectionName, slotsMock, modelSlot);
+		}
 
 		if (columnsListDoc.length < columnsMock.length) {
 			writeToDB(columnsCollectionName, columnsMock, modelColumn);
@@ -27,7 +35,7 @@ async function initializationDB(): Promise<void> {
 			writeToDB(accountsCollectionName, accountsMock, modelAccount);
 		}
 
-		if (settingsEditorsListDoc.length < settingsEditorsMock.length) { // если в базе данных менше чем в моке, значит надо записать моками
+		if (settingsEditorsListDoc.length < settingsEditorsMock.length) {
 			writeToDB(settingsEditorsCollectionName, settingsEditorsMock, modelSettingsEditor);
 		}
 
@@ -50,7 +58,7 @@ async function writeToDB(nameCollection: string, mockData: any[], model: any) {
 			for(let m = 0; m < mockData.length; m++) {
 				const element: any = { ...mockData[m] };
 
-				//delete element._id;
+				// delete element._id;
 
 				const doc = new model(element); // создаем документ монги на модель
 
@@ -60,8 +68,6 @@ async function writeToDB(nameCollection: string, mockData: any[], model: any) {
 		} else {
 			arr.push(model.createCollection());
 		}
-
-		console.log('arr', arr);
 
 		await Promise.all(arr); // обрабатываем все промисы сохранения документов
 

@@ -3,7 +3,6 @@ import { Schema } from 'mongoose';
 const types = Schema.Types;
 
 const options = {
-	_id: types.ObjectId,
 	login: types.String,
 	userName: types.String,
 	password: types.String,
