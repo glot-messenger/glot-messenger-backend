@@ -1,10 +1,4 @@
 [
-	{
-      "_id": "66a35f805d84bec8e8890dbe",
-      "columnId": "66a2b8e61a2f1d3e154d0df9",
-      "isEmpty": false,
-      "nameWidget": "logo-glot"
-   },
    {
       "_id": "66a35f805d84bec8e8890dbf",
       "columnId": "66a2b8e61a2f1d3e154d0df9",
@@ -52,5 +46,11 @@
       "columnId": "66a2b8e61a2f1d3e154d0dfb",
       "isEmpty": true,
       "nameWidget": ""
+   },
+   {
+      "_id": "66a35f805d84bec8e8890dbe",
+      "columnId": "66a2b8e61a2f1d3e154d0df9",
+      "isEmpty": false,
+      "nameWidget": "logo-glot"
    }
 ]

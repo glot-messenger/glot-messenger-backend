@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import config from 'config';
 import { getEndSegmentForUrlDataBase } from '../utils';
+import { modelSettingsEditor } from '../models';
 
 import {
 	FIREBASE,
@@ -107,7 +108,22 @@ routerSettingsEditors.post('/', async(req: Request, res: Response) => {
 	}
 
 	if (config.get('nameDB') === MONGO_DB) {
+		try {
+			const settingsEditorData = await modelSettingsEditor.findOne({ userId });
 
+			res.status(200).send({
+				settingsEditor: settingsEditorData
+			});
+
+		} catch (err: any) {
+			console.log('Error when getting the editor settings...');
+
+			console.log(`Error: ${err}.`);
+
+			res.status(500).send({
+				settingsEditor: null
+			});
+		}
 
 		return;
 	}
