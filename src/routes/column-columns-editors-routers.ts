@@ -4,7 +4,13 @@ import config from 'config';
 import { ColumnModel } from '../lib';
 
 import {
+	modelColumn,
+	modelSettingsEditor
+} from '../models';
+
+import {
 	FIREBASE,
+	MONGO_DB,
 	END_POINT_COLUMNS_EDITORS
 } from '../core';
 
@@ -27,9 +33,9 @@ routerColumnColumnsEditors.post('/', async(req: Request, res: Response) => {
 		dataNewColumn = new ColumnModel({ settingId });
 	}
 
-	const baseUrlColumnColumnsEditors: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_COLUMNS_EDITORS + `/${dataNewColumn._id}`);
-
 	if (config.get('nameDB') === FIREBASE) {
+		const baseUrlColumnColumnsEditors: string = getEndSegmentForUrlDataBase(config.get('urlDB') + END_POINT_COLUMNS_EDITORS + `/${dataNewColumn._id}`);
+
 		const responseColumnColumnsEditors = await fetch(baseUrlColumnColumnsEditors, {
 			method: 'PUT',
 			body: JSON.stringify(dataNewColumn)
@@ -44,6 +50,53 @@ routerColumnColumnsEditors.post('/', async(req: Request, res: Response) => {
 		res.status(404).send({
 			newColumnInEditor: null
 		});
+
+		return;
+	}
+
+	if (config.get('nameDB') === MONGO_DB) {
+		try {
+			delete dataNewColumn['_id'];
+
+			const settingsEditorData = await modelSettingsEditor.findOne({ _id: settingId });
+
+			// Если настроек редактора таких нет в базе, то значит что-то не то передали
+			if (!settingsEditorData) {
+				res.status(404).send({
+					newColumnInEditor: null
+				});
+
+				return;
+			}
+
+			const newColumn = await modelColumn.create(dataNewColumn);
+
+			const newSettingsEditor = await modelSettingsEditor.findByIdAndUpdate({ _id: settingId }, { columns: [...settingsEditorData.columns, newColumn._id] }, { new: true });
+
+			// Если при нахождении настроек редактора и добавлении нового id в поле columns опять что-то было не так найдено, то колонка удаляется из базы и ответ не успешный
+			if (!newSettingsEditor) {
+				await modelColumn.findOneAndDelete({ _id: newColumn._id.toString() });
+
+				res.status(404).send({
+					newColumnInEditor: null
+				});
+
+				return;
+			}
+
+			res.status(200).send({
+				newColumnInEditor: newColumn
+			});
+
+		} catch (err: any) {
+			console.log('Error when adding new columns...');
+
+			console.log(`Error: ${err}.`);
+
+			res.status(500).send({
+				newColumnInEditor: null
+			});
+		}
 
 		return;
 	}
