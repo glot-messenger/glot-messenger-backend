@@ -1,3 +1,7 @@
 import { ColumnModel } from './column';
+import { SlotModel } from './slot';
 
-export { ColumnModel };
+export {
+	ColumnModel,
+	SlotModel
+};

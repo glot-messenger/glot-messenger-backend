@@ -91,7 +91,7 @@ routerColumnColumnsEditors
 					});
 
 				} catch (err: any) {
-					console.log('Error when adding new columns...');
+					console.log('Error when adding new column...');
 
 					console.log(`Error: ${err}.`);
 
