@@ -5,6 +5,7 @@ import { routerSlotsEditors } from './slots-editors-routers';
 import { routerColumnColumnsEditors } from './column-columns-editors-routers';
 import { routerMovingColumnColumnsEditors } from './moving-column-columns-editors-routers';
 import { routerSlotSlotsEditors } from './slot-slots-editors-routers';
+import { routerMovingSlotSlotsEditors } from './moving-slot-slots-editors-routers';
 
 import {
 	END_POINT_SETTINGS_EDITORS,
@@ -12,7 +13,8 @@ import {
 	END_POINT_SLOTS_EDITORS,
 	END_POINT_COLUMN_COLUMNS_EDITORS,
 	END_POINT_MOVING_COLUMN_COLUMNS_EDITORS,
-	END_POINT_SLOT_SLOTS_EDITORS
+	END_POINT_SLOT_SLOTS_EDITORS,
+	END_POINT_MOVING_SLOT_SLOTS_EDITORS
 } from '../core';
 
 const routerChild = express.Router({ mergeParams: true });
@@ -26,5 +28,6 @@ routerChild.use(END_POINT_SLOTS_EDITORS, routerSlotsEditors);
 routerChild.use(END_POINT_COLUMN_COLUMNS_EDITORS, routerColumnColumnsEditors);
 routerChild.use(END_POINT_MOVING_COLUMN_COLUMNS_EDITORS, routerMovingColumnColumnsEditors);
 routerChild.use(END_POINT_SLOT_SLOTS_EDITORS, routerSlotSlotsEditors);
+routerChild.use(END_POINT_MOVING_SLOT_SLOTS_EDITORS, routerMovingSlotSlotsEditors);
 
 export { routerChild };
