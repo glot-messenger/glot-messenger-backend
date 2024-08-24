@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import process from 'node:process';
+import path from 'node:path';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { routerChild } from './routes';
@@ -27,6 +28,9 @@ const corsOptions = {
 APP.use(cors(corsOptions)); // для решения проблем с CORS
 APP.use(bodyParser.json({ strict: false })); // для добавления body в request
 APP.use('/api/v1', routerChild); // экземпляр дочернего роутера начинает подхватывать это начало
+
+// Временно - цепляем статику
+APP.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 if (MODE && MODE === 'production') {
 	console.log('Server is running in production MODE.');

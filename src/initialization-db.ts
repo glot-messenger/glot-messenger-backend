@@ -3,12 +3,14 @@ import settingsEditorsMock from './mock-data/settings-editors.json';
 import accountsMock from './mock-data/accounts.json';
 import columnsMock from './mock-data/columns.json';
 import slotsMock from './mock-data/slots.json';
+import whatsNewMock from './mock-data/whats-new.json';
 
 import {
 	modelSettingsEditor,
 	modelAccount,
 	modelColumn,
-	modelSlot
+	modelSlot,
+	modelWhatsNew
 } from './models';
 
 async function initializationDB(): Promise<void> {
@@ -17,11 +19,13 @@ async function initializationDB(): Promise<void> {
 		const settingsEditorsCollectionName = modelSettingsEditor.collection.collectionName;
 		const columnsCollectionName = modelColumn.collection.collectionName;
 		const slotsCollectionName = modelSlot.collection.collectionName;
+		const whatsNewCollectionName = modelWhatsNew.collection.collectionName;
 
 		const columnsListDoc = await modelColumn.find();
 		const settingsEditorsListDoc = await modelSettingsEditor.find();
 		const accountsListDoc = await modelAccount.find();
 		const slotsListDoc = await modelSlot.find();
+		const whatsListDoc = await modelWhatsNew.find();
 
 		if (slotsListDoc.length < slotsMock.length) { // если в базе данных менше чем в моке, значит надо записать моками
 			writeToDB(slotsCollectionName, slotsMock, modelSlot);
@@ -37,6 +41,10 @@ async function initializationDB(): Promise<void> {
 
 		if (settingsEditorsListDoc.length < settingsEditorsMock.length) {
 			writeToDB(settingsEditorsCollectionName, settingsEditorsMock, modelSettingsEditor);
+		}
+
+		if (whatsListDoc.length < whatsNewMock.length) {
+			writeToDB(whatsNewCollectionName, whatsNewMock, modelWhatsNew);
 		}
 
 	} catch (err: any) {
@@ -63,6 +71,9 @@ async function writeToDB(nameCollection: string, mockData: any[], model: any) {
 				const doc = new model(element); // создаем документ монги на модель
 
 				arr.push(doc.save()); // сохраняем документ
+
+				console.log('1111111');
+				
 			};
 
 		} else {
