@@ -4,6 +4,7 @@ const types = Schema.Types;
 
 const options = {
 	login: types.String,
+	timeCreatedInMs: types.Number,
 	userName: types.String,
 	password: types.String,
 	repeatPassword: types.String,
