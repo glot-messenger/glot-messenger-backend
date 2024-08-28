@@ -1,11 +1,22 @@
 import { Schema } from 'mongoose';
-import { ACCOUNT_COLLECTION_NAME_DB } from '../core';
+
+import {
+	ACCOUNT_COLLECTION_NAME_DB,
+	PROFILE_COLLECTION_NAME_DB
+} from '../core';
 
 const types = Schema.Types;
 
 const options = {
 	login: types.String,
 	timeCreatedInMs: types.Number,
+	profileInfo: [
+		{
+			type: types.ObjectId,
+			ref: PROFILE_COLLECTION_NAME_DB,
+			required: false
+		}
+	],
 	userName: types.String,
 	password: types.String,
 	repeatPassword: types.String,
