@@ -7,6 +7,9 @@
 		"password": "gipsi-mixer-lipentropper123!#@VmV",
 		"repeatPassword": "gipsi-mixer-lipentropper123!#@VmV",
 		"secretPhrase": "В шалаше шуршит шелками желтый дервиш из Алжира и, жонглируя ножами, штуку кушает инжира.",
-		"acceptanceOfTermsPoliciesAndRules": true
+		"acceptanceOfTermsPoliciesAndRules": true,
+		"mountedAccounts": [
+			
+		]
 	}
 ]
