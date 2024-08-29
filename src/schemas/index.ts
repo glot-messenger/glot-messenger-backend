@@ -4,6 +4,7 @@ import { schemaColumn } from './column-sh';
 import { schemaSlot } from './slot-sh';
 import { schemaWhatsNew } from './whats-new-sh';
 import { schemaProfile } from './profile-sh';
+import { schemaStatuse } from './statuse-sh';
 
 export {
 	schemaSettingsEditor,
@@ -11,5 +12,6 @@ export {
 	schemaColumn,
 	schemaSlot,
 	schemaWhatsNew,
-	schemaProfile
+	schemaProfile,
+	schemaStatuse
 };
