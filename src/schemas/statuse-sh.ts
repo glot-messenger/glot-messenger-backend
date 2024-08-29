@@ -3,7 +3,8 @@ import { Schema } from 'mongoose';
 const types = Schema.Types;
 
 const options = {
-  title: types.String,
+	title: types.String,
+	color: types.String,
 	description: types.String,
 	key: types.String,
 	text: types.String

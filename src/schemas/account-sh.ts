@@ -14,10 +14,9 @@ const options = {
 		{
 			type: types.ObjectId,
 			ref: PROFILE_COLLECTION_NAME_DB,
-			required: false
+			required: true
 		}
 	],
-	userName: types.String,
 	password: types.String,
 	repeatPassword: types.String,
 	secretPhrase: types.String,
